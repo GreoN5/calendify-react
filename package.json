@@ -2,17 +2,28 @@
   "name": "calendify-react",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
+  "private": true,
   "main": "src/index.ts",
-  "files": ["src/**/*"],
+  "files": [
+    "src/**/*"
+  ],
   "scripts": {},
-  "keywords": [],
-  "author": "GreoN5",
-  "license": "MIT",
-  "dependencies": {
-    "react": "^18.2.0"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GreoN5/calendify-react"
   },
+  "bugs": {
+    "url": "https://github.com/GreoN5/calendify-react/issues"
+  },
+  "keywords": [],
+  "author": "Georgi Dimitrov <GreoN5, georgidimitrov9669@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.2",
+    "@types/react": "^18.2.20",
+    "prettier": "^3.0.2",
+    "react": "^18.2.0",
     "typescript": "^5.1.6"
   }
 }
