@@ -1,14 +1,11 @@
 {
   "name": "calendify-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
-  "type": "module",
-  "private": true,
-  "main": "src/index.ts",
-  "files": [
-    "src/**/*"
-  ],
-  "scripts": {},
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "webpack --mode production"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/GreoN5/calendify-react"
@@ -16,6 +13,7 @@
   "bugs": {
     "url": "https://github.com/GreoN5/calendify-react/issues"
   },
+  "homepage": "https://github.com/GreoN5/calendify-react",
   "keywords": [],
   "author": "Georgi Dimitrov <GreoN5, georgidimitrov9669@gmail.com>",
   "license": "MIT",
@@ -24,6 +22,13 @@
     "@types/react": "^18.2.20",
     "prettier": "^3.0.2",
     "react": "^18.2.0",
-    "typescript": "^5.1.6"
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  },
+  "publishConfig": {
+    "name": "calendify-react",
+    "registry": "https://registry.npmjs.org"
   }
 }
