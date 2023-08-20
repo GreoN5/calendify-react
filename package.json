@@ -1,34 +1,56 @@
 {
   "name": "calendify-react",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "webpack --mode production"
-  },
+  "author": "Georgi Dimitrov <GreoN5, georgidimitrov9669@gmail.com>",
+  "license": "MIT",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "types": "dist/index.d.ts",
+  "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/GreoN5/calendify-react.git"
+    "url": "git+https://github.com/GreoN5/calendify-react.git"
+  },
+  "scripts": {
+    "rollup:build": "rollup -c"
   },
   "bugs": {
     "url": "https://github.com/GreoN5/calendify-react/issues"
   },
   "homepage": "https://github.com/GreoN5/calendify-react",
-  "keywords": [],
-  "author": "Georgi Dimitrov <GreoN5, georgidimitrov9669@gmail.com>",
-  "license": "MIT",
+  "keywords": [
+    "react",
+    "typescript",
+    "calendify",
+    "calendify-react"
+  ],
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.0",
+    "@rollup/plugin-typescript": "^11.1.2",
     "@tsconfig/recommended": "^1.0.2",
     "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
     "prettier": "^3.0.2",
     "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^3.28.0",
+    "rollup-plugin-dts": "^6.0.0",
     "ts-loader": "^9.4.4",
-    "typescript": "^5.1.6",
-    "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4"
+    "typescript": "^5.1.6"
   },
   "publishConfig": {
     "name": "calendify-react",
     "registry": "https://registry.npmjs.org"
+  },
+  "peerDependencies": {
+    "react": ">=16",
+    "react-dom": ">=16"
   }
 }
