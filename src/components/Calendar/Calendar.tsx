@@ -1,7 +1,8 @@
 import React, { JSX } from 'react';
+import { CalendarContainer } from '@/components/Layout';
 
-export const Calendar = (): JSX.Element => {
-  return <div>test</div>;
+const Calendar = (): JSX.Element => {
+  return <CalendarContainer></CalendarContainer>;
 };
 
-// export default Calendar;
+export default Calendar;

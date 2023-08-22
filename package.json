@@ -1,6 +1,6 @@
 {
   "name": "calendify-react",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "author": "Georgi Dimitrov <GreoN5, georgidimitrov9669@gmail.com>",
   "license": "MIT",
@@ -31,18 +31,21 @@
     "calendify-react"
   ],
   "devDependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.5",
     "@rollup/plugin-commonjs": "^25.0.4",
     "@rollup/plugin-node-resolve": "^15.2.0",
     "@rollup/plugin-typescript": "^11.1.2",
     "@tsconfig/recommended": "^1.0.2",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
+    "date-fns": "^2.30.0",
     "prettier": "^3.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^3.28.0",
     "rollup-plugin-dts": "^6.0.0",
-    "ts-loader": "^9.4.4",
     "typescript": "^5.1.6"
   },
   "publishConfig": {
