@@ -18,7 +18,9 @@
     "url": "git+https://github.com/GreoN5/calendify-react.git"
   },
   "scripts": {
-    "rollup:build": "rollup -c"
+    "rollup:build": "rollup -c",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "bugs": {
     "url": "https://github.com/GreoN5/calendify-react/issues"
@@ -37,6 +39,14 @@
     "@rollup/plugin-commonjs": "^25.0.4",
     "@rollup/plugin-node-resolve": "^15.2.0",
     "@rollup/plugin-typescript": "^11.1.2",
+    "@storybook/addon-essentials": "^7.3.2",
+    "@storybook/addon-interactions": "^7.3.2",
+    "@storybook/addon-links": "^7.3.2",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.3.2",
+    "@storybook/react": "^7.3.2",
+    "@storybook/react-vite": "^7.3.2",
+    "@storybook/testing-library": "^0.2.0",
     "@tsconfig/recommended": "^1.0.2",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
@@ -46,6 +56,7 @@
     "react-dom": "^18.2.0",
     "rollup": "^3.28.0",
     "rollup-plugin-dts": "^6.0.0",
+    "storybook": "^7.3.2",
     "typescript": "^5.1.6"
   },
   "publishConfig": {
