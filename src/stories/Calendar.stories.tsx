@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import CalendarComponent from '@/components/Calendar';
 
@@ -14,5 +15,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Calendar: Story = {
-  args: {},
+  render: () => <CalendarComponent />,
 };
