@@ -9,6 +9,7 @@ export default styled(Box)`
   background-color: #fff;
   height: 500px;
   column-gap: 20px;
-  padding: 8px 12px;
+  padding: 8px 24px;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 `;

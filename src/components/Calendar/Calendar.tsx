@@ -1,27 +1,41 @@
-import React, { JSX } from 'react';
-import { CalendarContainer, DayContainer } from '@/components/Layout';
-import { useDays, useWeekdays } from '@/hooks/useDays';
-import Weekday from '@/components/Calendar/Weekday';
+import React, { JSX, UIEvent, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { format } from 'date-fns';
+import { CalendarContainer, DayContainer } from '@/components/Layout';
+import Weekday from '@/components/Calendar/Weekday';
+import { useDays, useWeekdays } from '@/hooks/useDays';
+import { loadMoreWeeks } from '@/utils/date';
 
 const Calendar = (): JSX.Element => {
   const { weekdays } = useWeekdays();
   const { days } = useDays();
 
+  const [additionalDates, setAdditionalDates] = useState<Array<Date>>(days);
+
+  const handleScroll = (e: UIEvent<HTMLDivElement>) => {
+    const container = e.currentTarget;
+
+    if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+      const newWeeks = loadMoreWeeks(
+        additionalDates[additionalDates.length - 1] || days[days.length - 1],
+      );
+      setAdditionalDates((prevState) => [...prevState, ...newWeeks]);
+    }
+  };
+
   return (
     <Box>
-      <CalendarContainer>
+      <CalendarContainer onScroll={handleScroll}>
         {weekdays.map((day) => {
           return (
-            <Weekday day={day}>
-              {days.map((date) => {
+            <Weekday key={day} day={day}>
+              {[...days, ...additionalDates]?.map((date) => {
                 const dayOfWeek = format(date, 'EEEE');
                 if (dayOfWeek !== day) return null; // match day of week with its date
 
                 return (
-                  <DayContainer>
-                    <Typography>{format(date, 'dd')}</Typography>
+                  <DayContainer key={date.toISOString()}>
+                    <Typography>{format(date, 'dd.MM')}</Typography>
                   </DayContainer>
                 );
               })}
