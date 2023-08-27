@@ -1,21 +1,12 @@
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC } from 'react';
 import { Typography } from '@mui/material';
-import WeekdayContainer from '@/components/Layout/WeekdayContainer';
-import WeekColumnContainer from '@/components/Layout/WeekColumnContainer';
 
 type Props = {
   day: string;
 };
 
-const Weekday: FC<PropsWithChildren<Props>> = ({ day, children }) => {
-  return (
-    <WeekColumnContainer>
-      <WeekdayContainer>
-        <Typography>{day}</Typography>
-      </WeekdayContainer>
-      {children}
-    </WeekColumnContainer>
-  );
+const Weekday: FC<Props> = ({ day }) => {
+  return <Typography textAlign="center">{day}</Typography>;
 };
 
 export default Weekday;

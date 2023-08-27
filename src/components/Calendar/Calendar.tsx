@@ -1,12 +1,17 @@
-import React, { JSX, UIEvent, useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import React, { FC, ReactNode, UIEvent, useState } from 'react';
+import { Typography } from '@mui/material';
 import { format } from 'date-fns';
-import { CalendarContainer, DayContainer } from '@/components/Layout';
+import { CalendarContainer, DayContainer, WeekContainer } from '@/components/Layout';
 import Weekday from '@/components/Calendar/Weekday';
 import { useDays, useWeekdays } from '@/hooks/useDays';
 import { loadMoreWeeks } from '@/utils/date';
+import DatesContainer from '@/components/Layout/DatesContainer';
 
-const Calendar = (): JSX.Element => {
+type Props = {
+  dateActions?: ReactNode;
+};
+
+const Calendar: FC<Props> = ({ dateActions }) => {
   const { weekdays } = useWeekdays();
   const { days } = useDays();
 
@@ -24,26 +29,23 @@ const Calendar = (): JSX.Element => {
   };
 
   return (
-    <Box>
-      <CalendarContainer onScroll={handleScroll}>
+    <CalendarContainer>
+      <WeekContainer>
         {weekdays.map((day) => {
+          return <Weekday key={day} day={day} />;
+        })}
+      </WeekContainer>
+      <DatesContainer onScroll={handleScroll}>
+        {[...days, ...additionalDates]?.map((date) => {
           return (
-            <Weekday key={day} day={day}>
-              {[...days, ...additionalDates]?.map((date) => {
-                const dayOfWeek = format(date, 'EEEE');
-                if (dayOfWeek !== day) return null; // match day of week with its date
-
-                return (
-                  <DayContainer key={date.toISOString()}>
-                    <Typography>{format(date, 'dd.MM')}</Typography>
-                  </DayContainer>
-                );
-              })}
-            </Weekday>
+            <DayContainer key={date.toISOString()} minWidth="80px">
+              <Typography>{format(date, 'dd.MM')}</Typography>
+              {dateActions}
+            </DayContainer>
           );
         })}
-      </CalendarContainer>
-    </Box>
+      </DatesContainer>
+    </CalendarContainer>
   );
 };
 
