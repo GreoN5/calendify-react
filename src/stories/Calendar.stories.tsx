@@ -17,3 +17,18 @@ type Story = StoryObj<typeof meta>;
 export const Calendar: Story = {
   render: () => <CalendarComponent />,
 };
+
+export const CalendarCheckbox: Story = {
+  render: () => (
+    <CalendarComponent
+      useCheckBox
+      onChange={(e) => {
+        console.log(e.target.value);
+      }}
+    />
+  ),
+};
+
+export const CalendarCustomActions: Story = {
+  render: () => <CalendarComponent dateActions={<div>action</div>} />,
+};
