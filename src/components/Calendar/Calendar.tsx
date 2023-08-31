@@ -13,7 +13,7 @@ export type CustomActionsProps = {
 };
 
 export type CheckBoxProps = {
-  useCheckBox?: boolean;
+  useCheckbox?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
