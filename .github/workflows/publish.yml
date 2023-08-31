@@ -1,0 +1,48 @@
+name: Publish to NPM
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Determine version bump type
+        id: determine-bump
+        run: |
+          COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+          if [[ $COMMIT_MESSAGE == *"[minor]"* ]]; then
+            echo "::set-output name=bump::minor"
+          elif [[ $COMMIT_MESSAGE == *"[major]"* ]]; then
+            echo "::set-output name=bump::major"
+          else
+            echo "::set-output name=bump::patch"
+          fi
+
+      - name: Bump package version and commit
+        run: |
+          BUMP_TYPE=$(echo ${{ steps.determine-bump.outputs.bump }})
+          npm version $BUMP_TYPE -m "Bump version to %s [skip ci]"
+          git push --follow-tags
+
+      - name: Publish to NPM
+        run: |
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+          npm publish
+
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_RELEASE_TOKEN }}
