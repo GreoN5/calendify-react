@@ -18,6 +18,11 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Git configuration
+        run: |
+          git config --global user.email "georgidimitrov9669@gmail.com"
+          git config --global user.name "GreoN5"
+
       - name: Install dependencies
         run: npm install
 
@@ -38,6 +43,9 @@ jobs:
           BUMP_TYPE=$(echo ${{ steps.determine-bump.outputs.bump }})
           npm version $BUMP_TYPE -m "Bump version to %s [skip ci]"
           git push --follow-tags
+
+      - name: Build
+        run: npm run rollup:build
 
       - name: Publish to NPM
         run: |
