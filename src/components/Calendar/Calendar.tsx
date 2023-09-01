@@ -12,12 +12,12 @@ export type CustomActionsProps = {
   dateActions?: ReactNode;
 };
 
-export type CheckBoxProps = {
+export type CheckboxProps = {
   useCheckbox?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-type Props = CustomActionsProps | CheckBoxProps;
+type Props = CustomActionsProps | CheckboxProps;
 
 const Calendar: FC<Props> = (props) => {
   const { weekdays } = useWeekdays();
