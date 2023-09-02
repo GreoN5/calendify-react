@@ -36,16 +36,72 @@ export default App;
 
 `Calendar` component accepts the following props:
 
-- `dateActions`: A custom React component to be rendered within each calendar cell. This should be a `ReactNode` and can
-  be used for adding additional content or functionality to the calendar cells.
+- `useCheckbox` (boolean): A flag to indicate whether to use a checkbox for each calendar date. When set to `true`, the
+  checkbox will
+  be displayed.
 
-### dateActions disclaimer
+- `onChange` (function): A callback function to be executed when the checkbox's value changes. This function
+  should accept an event of type `ChangeEvent<HTMLInputElement>`, allowing you to access the checkbox's new state.
 
-Please be mindful when using the dateActions prop. Adding complex or resource-intensive components might impact the
-rendering performance of your calendar. It's recommended to thoroughly test and optimize any custom components you
-provide to maintain a smooth user experience.
+### Example with `useCheckbox`:
 
-It is recommended to use simple elements/components similar to `<button>` or `<input type="checkbox">`.
+```jsx
+import React from 'react';
+import { Calendar } from 'calendify-react';
+
+function App() {
+  return <Calendar useCheckbox onChange={(e) => console.log(e)} />;
+}
+
+export default App;
+```
+
+- `useModal` (boolean): A flag to indicate whether to use a modal for each calendar date. When set to `true`, a modal
+  button
+  will be
+  displayed.
+
+- `onSaveChanges` (function): A callback function to be executed when changes are saved within the modal.
+
+### Example with `useModal`:
+
+```jsx
+import React from 'react';
+import { Calendar } from 'calendify-react';
+
+function App() {
+  return <Calendar useModal onSaveChanges={() => console.log('changes saved')} />;
+}
+
+export default App;
+```
+
+- `modalContent` (ReactNode): Ability to add custom modal to be displayed instead of the default one. `onSaveChanges`
+  prop can be omitted if this one is used.
+
+### Example with custom `modalContent`:
+
+```jsx
+import React from 'react';
+import { Calendar } from 'calendify-react';
+
+function App() {
+  return <Calendar useModal modalContent={<div>my custom content</div>} />;
+}
+
+export default App;
+```
+
+### Disclaimer
+
+Please note that the `useCheckbox`, `onChange`, `useModal`, `modalContent`, and `onSaveChanges` props are mutually
+exclusive and
+should not be used together. Choose either `useCheckbox`, `onChange` or `useModal`, `modalContent`, `onSaveChanges`
+based on your component's functionality.
+
+## Storybook
+
+[Visit storybook](https://calendify-react-storybook.netlify.app/ "Visit Storybook")
 
 ## Contributing
 
