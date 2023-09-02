@@ -18,9 +18,9 @@
     "url": "git+https://github.com/GreoN5/calendify-react.git"
   },
   "scripts": {
-    "rollup:build": "rollup -c",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build:rollup": "rollup -c",
+    "build:storybook": "storybook build"
   },
   "bugs": {
     "url": "https://github.com/GreoN5/calendify-react/issues"
