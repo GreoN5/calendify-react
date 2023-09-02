@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FC, ReactNode, UIEvent, useState } from 'react';
-import { Box, Checkbox, Typography } from '@mui/material';
+import { Box, Button, Checkbox, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import { CalendarContainer, DayContainer, WeekContainer } from '@/components/Layout';
 import Weekday from '@/components/Calendar/Weekday';
@@ -62,7 +62,11 @@ const Calendar: FC<Props> = (props) => {
               minHeight={!isCheckboxProps ? '60px' : undefined}
             >
               <Typography>{format(date, 'dd.MM')}</Typography>
-              {isModalProps && !props.modalContent ? <Box></Box> : null}
+              {isModalProps && !props.modalContent ? (
+                <Box>
+                  <Button>Date</Button>
+                </Box>
+              ) : null}
               {isModalProps && props.modalContent ? props.modalContent : null}
               {isCheckboxProps ? (
                 <Box>
