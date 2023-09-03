@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { CalendarContainer, DayContainer, WeekContainer } from '@/components/Layout';
 import Weekday from '@/components/Calendar/Weekday';
 import DatesContainer from '@/components/Layout/DatesContainer';
+import Modal from '@/components/Modal';
 import { useDays, useWeekdays } from '@/hooks/useDays';
 import { loadMoreWeeks } from '@/utils/date';
 import { isOfTypeCheckboxProps, isOfTypeModalProps } from '@/utils/props';
@@ -31,6 +32,8 @@ const Calendar: FC<Props> = (props) => {
   const { days } = useDays();
 
   const [additionalDates, setAdditionalDates] = useState<Array<Date>>(days);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [currentDate, setCurrentDate] = useState<Date | null>(null);
 
   const handleScroll = (e: UIEvent<HTMLDivElement>) => {
     const container = e.currentTarget;
@@ -47,37 +50,54 @@ const Calendar: FC<Props> = (props) => {
   const isCheckboxProps = isOfTypeCheckboxProps(props);
 
   return (
-    <CalendarContainer>
-      <WeekContainer>
-        {weekdays.map((day) => {
-          return <Weekday key={day} day={day} />;
-        })}
-      </WeekContainer>
-      <DatesContainer onScroll={handleScroll}>
-        {[...days, ...additionalDates]?.map((date) => {
-          return (
-            <DayContainer
-              key={date.toISOString()}
-              minWidth="80px"
-              minHeight={!isCheckboxProps ? '60px' : undefined}
-            >
-              <Typography>{format(date, 'dd.MM')}</Typography>
-              {isModalProps && !props.modalContent ? (
-                <Box>
-                  <Button>Date</Button>
-                </Box>
-              ) : null}
-              {isModalProps && props.modalContent ? props.modalContent : null}
-              {isCheckboxProps ? (
-                <Box>
-                  <Checkbox value={date} onChange={props.onChange} />
-                </Box>
-              ) : null}
-            </DayContainer>
-          );
-        })}
-      </DatesContainer>
-    </CalendarContainer>
+    <>
+      <CalendarContainer>
+        <WeekContainer>
+          {weekdays.map((day) => {
+            return <Weekday key={day} day={day} />;
+          })}
+        </WeekContainer>
+        <DatesContainer onScroll={handleScroll}>
+          {[...days, ...additionalDates]?.map((date) => {
+            return (
+              <DayContainer
+                key={date.toISOString()}
+                minWidth="80px"
+                minHeight={!isCheckboxProps ? '60px' : undefined}
+              >
+                <Typography>{format(date, 'dd.MM')}</Typography>
+                {isModalProps ? (
+                  <Box>
+                    <Button
+                      onClick={() => {
+                        setCurrentDate(date);
+                        setOpenModal(true);
+                      }}
+                    >
+                      Date
+                    </Button>
+                  </Box>
+                ) : null}
+                {isCheckboxProps ? (
+                  <Box>
+                    <Checkbox value={date} onChange={props.onChange} />
+                  </Box>
+                ) : null}
+              </DayContainer>
+            );
+          })}
+        </DatesContainer>
+      </CalendarContainer>
+      {isModalProps && (
+        <Modal
+          isOpen={openModal}
+          currentDate={currentDate}
+          modalContent={props.modalContent}
+          onClose={() => setOpenModal(false)}
+          onSaveChanges={props.onSaveChanges}
+        />
+      )}
+    </>
   );
 };
 
