@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Box, Button } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import CalendarComponent from '@/components/Calendar';
 
 const meta: Meta<typeof CalendarComponent> = {
@@ -27,13 +27,13 @@ export const CalendarModal: Story = {
   render: () => <CalendarComponent useModal onSaveChanges={() => console.log('calendar modal')} />,
 };
 
-export const CalendarCustomModal: Story = {
+export const CalendarCustomModalContent: Story = {
   render: () => (
     <CalendarComponent
       useModal
       modalContent={
-        <Box>
-          <Button>Date</Button>
+        <Box p={2}>
+          <TextField />
         </Box>
       }
     />
