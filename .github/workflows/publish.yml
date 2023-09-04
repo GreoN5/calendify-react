@@ -23,7 +23,7 @@ jobs:
       - name: Git configuration
         run: |
           git config --global user.name GreoN5
-          git config --global user.email georgi9669@gmail.com
+          git config --global user.email georgidimitrov9669@gmail.com
 
       - name: Install dependencies
         run: npm install
