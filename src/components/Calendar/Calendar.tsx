@@ -7,25 +7,42 @@ import DatesContainer from '@/components/Layout/DatesContainer';
 import Modal from '@/components/Modal';
 import { useDays, useWeekdays } from '@/hooks/useDays';
 import { loadMoreWeeks } from '@/utils/date';
-import { isOfTypeCheckboxProps, isOfTypeModalProps } from '@/utils/props';
+import {
+  isOfTypeCheckboxProps,
+  isOfTypeCustomDateActionProps,
+  isOfTypeModalProps,
+} from '@/utils/props';
+
+export type CustomDateActionProps = {
+  dateActions?: ReactNode;
+  useModal?: never;
+  modalProps?: never;
+  checkboxProps?: never;
+  useCheckbox?: never;
+};
 
 export type ModalProps = {
   useModal?: boolean;
-  modalContent?: ReactNode;
-  onSaveChanges?: () => void;
+  modalProps?: {
+    modalContent?: ReactNode;
+    onSaveChanges?: () => void;
+  };
+  checkboxProps?: never;
   useCheckbox?: never;
-  onChange?: never;
+  dateActions?: never;
 };
 
 export type CheckboxProps = {
   useCheckbox: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  checkboxProps: {
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  };
   useModal?: never;
-  modalContent?: never;
-  onSaveChanges?: never;
+  modalProps?: never;
+  dateActions?: never;
 };
 
-type Props = CheckboxProps | ModalProps;
+type Props = CheckboxProps | ModalProps | CustomDateActionProps;
 
 const Calendar: FC<Props> = (props) => {
   const { weekdays } = useWeekdays();
@@ -48,6 +65,7 @@ const Calendar: FC<Props> = (props) => {
 
   const isModalProps = isOfTypeModalProps(props);
   const isCheckboxProps = isOfTypeCheckboxProps(props);
+  const isCustomDateActionProps = isOfTypeCustomDateActionProps(props);
 
   return (
     <>
@@ -60,12 +78,8 @@ const Calendar: FC<Props> = (props) => {
         <DatesContainer onScroll={handleScroll}>
           {[...days, ...additionalDates]?.map((date) => {
             return (
-              <DayContainer
-                key={date.toISOString()}
-                minWidth="80px"
-                minHeight={!isCheckboxProps ? '60px' : undefined}
-              >
-                <Typography>{format(date, 'dd.MM')}</Typography>
+              <DayContainer key={date.toISOString()} minWidth="80px">
+                <Typography py="4px">{format(date, 'dd.MM')}</Typography>
                 {isModalProps ? (
                   <Box>
                     <Button
@@ -73,16 +87,19 @@ const Calendar: FC<Props> = (props) => {
                         setCurrentDate(date);
                         setOpenModal(true);
                       }}
+                      size="small"
+                      variant="contained"
                     >
-                      Date
+                      Open
                     </Button>
                   </Box>
                 ) : null}
                 {isCheckboxProps ? (
                   <Box>
-                    <Checkbox value={date} onChange={props.onChange} />
+                    <Checkbox value={date} onChange={props.checkboxProps.onChange} />
                   </Box>
                 ) : null}
+                {isCustomDateActionProps ? props.dateActions : null}
               </DayContainer>
             );
           })}
@@ -92,9 +109,9 @@ const Calendar: FC<Props> = (props) => {
         <Modal
           isOpen={openModal}
           currentDate={currentDate}
-          modalContent={props.modalContent}
+          modalContent={props.modalProps?.modalContent}
           onClose={() => setOpenModal(false)}
-          onSaveChanges={props.onSaveChanges}
+          onSaveChanges={props.modalProps?.onSaveChanges}
         />
       )}
     </>
