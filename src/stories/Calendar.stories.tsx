@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Box, TextField } from '@mui/material';
+import { Box, Switch, TextField } from '@mui/material';
 import CalendarComponent from '@/components/Calendar';
 
 const meta: Meta<typeof CalendarComponent> = {
@@ -54,4 +54,8 @@ export const CalendarCustomModalContent: Story = {
       }}
     />
   ),
+};
+
+export const CalendarCustomDateActions: Story = {
+  render: () => <CalendarComponent dateActions={<Switch />} />,
 };

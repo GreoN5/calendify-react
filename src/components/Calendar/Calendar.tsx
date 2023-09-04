@@ -15,6 +15,10 @@ import {
 
 export type CustomDateActionProps = {
   dateActions?: ReactNode;
+  useModal?: never;
+  modalProps?: never;
+  checkboxProps?: never;
+  useCheckbox?: never;
 };
 
 export type ModalProps = {
@@ -25,6 +29,7 @@ export type ModalProps = {
   };
   checkboxProps?: never;
   useCheckbox?: never;
+  dateActions?: never;
 };
 
 export type CheckboxProps = {
@@ -34,6 +39,7 @@ export type CheckboxProps = {
   };
   useModal?: never;
   modalProps?: never;
+  dateActions?: never;
 };
 
 type Props = CheckboxProps | ModalProps | CustomDateActionProps;

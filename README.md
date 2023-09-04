@@ -39,9 +39,10 @@ export default App;
 - `useCheckbox` (boolean): A flag to indicate whether to use a checkbox for each calendar date. When set to `true`, the
   checkbox will
   be displayed.
-
-- `onChange` (function): A callback function to be executed when the checkbox's value changes. This function
-  should accept an event of type `ChangeEvent<HTMLInputElement>`, allowing you to access the checkbox's new state.
+- `checkboxProps` (object): An object containing properties related to the checkbox.
+    - `onChange` (function): A callback function to be executed when the checkbox's value changes. This function should
+      accept
+      an event of type ChangeEvent<HTMLInputElement>, allowing you to access the checkbox's new state.
 
 ### Example with `useCheckbox`:
 
@@ -50,7 +51,16 @@ import React from 'react';
 import { Calendar } from 'calendify-react';
 
 function App() {
-  return <Calendar useCheckbox onChange={(e) => console.log(e)} />;
+  return (
+    <Calendar
+      useCheckbox
+      checkboxProps={{
+        onChange: (e) => {
+          console.log(e.target.value)
+        },
+      }}
+    />
+  );
 }
 
 export default App;
@@ -60,8 +70,10 @@ export default App;
   button
   will be
   displayed.
-
-- `onSaveChanges` (function): A callback function to be executed when changes are saved within the modal.
+- `modalProps` (object): An object containing properties related to the modal.
+    - `modalContent` (ReactNode): Ability to add custom modal content to be displayed instead of the default
+      one.
+    - `onSaveChanges` (function): A callback function to be executed when changes are saved within the modal.
 
 ### Example with `useModal`:
 
@@ -70,23 +82,56 @@ import React from 'react';
 import { Calendar } from 'calendify-react';
 
 function App() {
-  return <Calendar useModal onSaveChanges={() => console.log('changes saved')} />;
+  return (
+    <Calendar
+      useModal
+      modalProps={{
+        onSaveChanges: () => console.log('calendar modal'),
+      }}
+    />
+  );
 }
 
 export default App;
 ```
 
-- `modalContent` (ReactNode): Ability to add custom modal to be displayed instead of the default one. `onSaveChanges`
-  prop can be omitted if this one is used.
-
 ### Example with custom `modalContent`:
 
 ```jsx
 import React from 'react';
+import { Box, TextField } from '@mui/material';
 import { Calendar } from 'calendify-react';
 
 function App() {
-  return <Calendar useModal modalContent={<div>my custom content</div>} />;
+  return (
+    <Calendar
+      useModal
+      modalProps={{
+        modalContent: (
+          <Box p={2}>
+            <TextField />
+          </Box>
+        ),
+      }}
+    />
+  );
+}
+
+export default App;
+```
+
+`dateActions` (ReactNode): A ReactNode that can be used to provide custom date-related actions or
+elements.
+
+### Example with custom `dateActions`:
+
+```jsx
+import React from 'react';
+import { Switch } from '@mui/material';
+import { Calendar } from 'calendify-react';
+
+function App() {
+  return <Calendar dateActions={<Switch />} />
 }
 
 export default App;
@@ -94,9 +139,9 @@ export default App;
 
 ### Disclaimer
 
-Please note that the `useCheckbox`, `onChange`, `useModal`, `modalContent`, and `onSaveChanges` props are mutually
-exclusive and
-should not be used together. Choose either `useCheckbox`, `onChange` or `useModal`, `modalContent`, `onSaveChanges`
+Please note that the `useCheckbox`, `checkboxProps`, `useModal`, `modalProps` and `dateActions` props are mutually
+exclusive and should not be used together. Choose either `useCheckbox`, `checkboxProps` or `useModal`, `modalProps`
+or `dateActions`
 based on your component's functionality.
 
 ## Storybook
