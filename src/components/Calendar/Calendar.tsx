@@ -7,7 +7,15 @@ import DatesContainer from '@/components/Layout/DatesContainer';
 import Modal from '@/components/Modal';
 import { useDays, useWeekdays } from '@/hooks/useDays';
 import { loadMoreWeeks } from '@/utils/date';
-import { isOfTypeCheckboxProps, isOfTypeModalProps } from '@/utils/props';
+import {
+  isOfTypeCheckboxProps,
+  isOfTypeCustomDateActionProps,
+  isOfTypeModalProps,
+} from '@/utils/props';
+
+export type CustomDateActionProps = {
+  dateActions?: ReactNode;
+};
 
 export type ModalProps = {
   useModal?: boolean;
@@ -28,7 +36,7 @@ export type CheckboxProps = {
   modalProps?: never;
 };
 
-type Props = CheckboxProps | ModalProps;
+type Props = CheckboxProps | ModalProps | CustomDateActionProps;
 
 const Calendar: FC<Props> = (props) => {
   const { weekdays } = useWeekdays();
@@ -51,6 +59,7 @@ const Calendar: FC<Props> = (props) => {
 
   const isModalProps = isOfTypeModalProps(props);
   const isCheckboxProps = isOfTypeCheckboxProps(props);
+  const isCustomDateActionProps = isOfTypeCustomDateActionProps(props);
 
   return (
     <>
@@ -84,6 +93,7 @@ const Calendar: FC<Props> = (props) => {
                     <Checkbox value={date} onChange={props.checkboxProps.onChange} />
                   </Box>
                 ) : null}
+                {isCustomDateActionProps ? props.dateActions : null}
               </DayContainer>
             );
           })}
