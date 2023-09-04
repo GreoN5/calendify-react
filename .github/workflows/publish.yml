@@ -28,13 +28,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Determine version bump type
+      - name: Determine version bump type from PR title
         id: determine-bump
         run: |
-          COMMIT_MESSAGE=$(git log -1 --pretty=%B)
-          if [[ $COMMIT_MESSAGE == *"[minor]"* ]]; then
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          if [[ $PR_TITLE == *"[minor]"* ]]; then
             echo "::set-output name=bump::minor"
-          elif [[ $COMMIT_MESSAGE == *"[major]"* ]]; then
+          elif [[ $PR_TITLE == *"[major]"* ]]; then
             echo "::set-output name=bump::major"
           else
             echo "::set-output name=bump::patch"
