@@ -11,18 +11,21 @@ import { isOfTypeCheckboxProps, isOfTypeModalProps } from '@/utils/props';
 
 export type ModalProps = {
   useModal?: boolean;
-  modalContent?: ReactNode;
-  onSaveChanges?: () => void;
+  modalProps?: {
+    modalContent?: ReactNode;
+    onSaveChanges?: () => void;
+  };
+  checkboxProps?: never;
   useCheckbox?: never;
-  onChange?: never;
 };
 
 export type CheckboxProps = {
   useCheckbox: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  checkboxProps: {
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  };
   useModal?: never;
-  modalContent?: never;
-  onSaveChanges?: never;
+  modalProps?: never;
 };
 
 type Props = CheckboxProps | ModalProps;
@@ -60,12 +63,8 @@ const Calendar: FC<Props> = (props) => {
         <DatesContainer onScroll={handleScroll}>
           {[...days, ...additionalDates]?.map((date) => {
             return (
-              <DayContainer
-                key={date.toISOString()}
-                minWidth="80px"
-                minHeight={!isCheckboxProps ? '60px' : undefined}
-              >
-                <Typography>{format(date, 'dd.MM')}</Typography>
+              <DayContainer key={date.toISOString()} minWidth="80px">
+                <Typography py="4px">{format(date, 'dd.MM')}</Typography>
                 {isModalProps ? (
                   <Box>
                     <Button
@@ -73,14 +72,16 @@ const Calendar: FC<Props> = (props) => {
                         setCurrentDate(date);
                         setOpenModal(true);
                       }}
+                      size="small"
+                      variant="contained"
                     >
-                      Date
+                      Open
                     </Button>
                   </Box>
                 ) : null}
                 {isCheckboxProps ? (
                   <Box>
-                    <Checkbox value={date} onChange={props.onChange} />
+                    <Checkbox value={date} onChange={props.checkboxProps.onChange} />
                   </Box>
                 ) : null}
               </DayContainer>
@@ -92,9 +93,9 @@ const Calendar: FC<Props> = (props) => {
         <Modal
           isOpen={openModal}
           currentDate={currentDate}
-          modalContent={props.modalContent}
+          modalContent={props.modalProps?.modalContent}
           onClose={() => setOpenModal(false)}
-          onSaveChanges={props.onSaveChanges}
+          onSaveChanges={props.modalProps?.onSaveChanges}
         />
       )}
     </>

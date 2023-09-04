@@ -20,22 +20,38 @@ export const Calendar: Story = {
 };
 
 export const CalendarCheckbox: Story = {
-  render: () => <CalendarComponent useCheckbox onChange={(e) => console.log(e)} />,
+  render: () => (
+    <CalendarComponent
+      useCheckbox
+      checkboxProps={{
+        onChange: (e) => console.log(e),
+      }}
+    />
+  ),
 };
 
 export const CalendarModal: Story = {
-  render: () => <CalendarComponent useModal onSaveChanges={() => console.log('calendar modal')} />,
+  render: () => (
+    <CalendarComponent
+      useModal
+      modalProps={{
+        onSaveChanges: () => console.log('calendar modal'),
+      }}
+    />
+  ),
 };
 
 export const CalendarCustomModalContent: Story = {
   render: () => (
     <CalendarComponent
       useModal
-      modalContent={
-        <Box p={2}>
-          <TextField />
-        </Box>
-      }
+      modalProps={{
+        modalContent: (
+          <Box p={2}>
+            <TextField />
+          </Box>
+        ),
+      }}
     />
   ),
 };
