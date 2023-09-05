@@ -120,29 +120,11 @@ function App() {
 export default App;
 ```
 
-`dateActions` (ReactNode): A ReactNode that can be used to provide custom date-related actions or
-elements.
-
-### Example with custom `dateActions`:
-
-```jsx
-import React from 'react';
-import { Switch } from '@mui/material';
-import { Calendar } from 'calendify-react';
-
-function App() {
-  return <Calendar dateActions={<Switch />} />
-}
-
-export default App;
-```
-
 ### Disclaimer
 
-Please note that the `useCheckbox`, `checkboxProps`, `useModal`, `modalProps` and `dateActions` props are mutually
-exclusive and should not be used together. Choose either `useCheckbox`, `checkboxProps` or `useModal`, `modalProps`
-or `dateActions`
-based on your component's functionality.
+Please note that the `useCheckbox`, `checkboxProps`, `useModal` and `modalProps` props are mutually exclusive and should
+not be used together. Choose either `useCheckbox`, `checkboxProps` or `useModal`, `modalProps` based on your component's
+functionality.
 
 ## Storybook
 
