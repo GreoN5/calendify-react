@@ -7,14 +7,17 @@ import DatesContainer from '@/components/Layout/DatesContainer';
 import Modal from '@/components/Modal';
 import { useDays, useWeekdays } from '@/hooks/useDays';
 import { loadMoreWeeks } from '@/utils/date';
-import { isOfTypeCheckboxProps, isOfTypeModalProps } from '@/utils/props';
+import { isOfTypeCalendarModalProps, isOfTypeCheckboxProps } from '@/utils/props';
+import { DialogProps } from '@mui/material/Dialog/Dialog';
 
-export type ModalProps = {
+interface ModalProps extends Omit<DialogProps, 'open' | 'onClose' | 'onClick' | 'onChange'> {
+  modalContent?: ReactNode;
+  onSaveChanges?: () => void;
+}
+
+export type CalendarModalProps = {
   useModal?: boolean;
-  modalProps?: {
-    modalContent?: ReactNode;
-    onSaveChanges?: () => void;
-  };
+  modalProps?: ModalProps;
   checkboxProps?: never;
   useCheckbox?: never;
   dateActions?: never;
@@ -28,7 +31,7 @@ export type CheckboxProps = {
   dateActions?: never;
 };
 
-type Props = CheckboxProps | ModalProps;
+type Props = CheckboxProps | CalendarModalProps;
 
 const Calendar: FC<Props> = (props) => {
   const { weekdays } = useWeekdays();
@@ -49,7 +52,7 @@ const Calendar: FC<Props> = (props) => {
     }
   };
 
-  const isModalProps = isOfTypeModalProps(props);
+  const isModalProps = isOfTypeCalendarModalProps(props);
   const isCheckboxProps = isOfTypeCheckboxProps(props);
 
   return (
@@ -96,6 +99,7 @@ const Calendar: FC<Props> = (props) => {
           modalContent={props.modalProps?.modalContent}
           onClose={() => setOpenModal(false)}
           onSaveChanges={props.modalProps?.onSaveChanges}
+          {...props.modalProps}
         />
       )}
     </>
