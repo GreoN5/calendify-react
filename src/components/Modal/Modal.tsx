@@ -10,16 +10,29 @@ type Props = {
   modalContent?: ReactNode;
 };
 
-const Modal: FC<Props> = ({ isOpen, currentDate, onClose, onSaveChanges, modalContent }) => {
+const Modal: FC<Props> = ({
+  isOpen,
+  currentDate,
+  onClose,
+  onSaveChanges,
+  modalContent,
+  ...props
+}) => {
   if (!currentDate) return null;
 
   return (
-    <Dialog open={isOpen} onClose={onClose}>
+    <Dialog open={isOpen} onClose={onClose} {...props}>
       <DialogTitle>{format(currentDate, 'dd.MM.yyyy')}</DialogTitle>
       {modalContent}
       <DialogActions>
-        <Button onClick={onSaveChanges}>Save</Button>
-        <Button onClick={onClose}>Close</Button>
+        {onSaveChanges ? (
+          <Button onClick={onSaveChanges} variant="contained">
+            Save
+          </Button>
+        ) : null}
+        <Button onClick={onClose} variant="outlined">
+          Close
+        </Button>
       </DialogActions>
     </Dialog>
   );

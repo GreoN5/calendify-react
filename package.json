@@ -29,8 +29,10 @@
   "keywords": [
     "react",
     "typescript",
-    "calendify",
-    "calendify-react"
+    "javascript",
+    "calendify-react",
+    "calendar",
+    "react-calendar"
   ],
   "devDependencies": {
     "@emotion/react": "^11.11.1",
