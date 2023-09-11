@@ -31,7 +31,7 @@ jobs:
       - name: Determine version bump type from PR title
         id: determine-bump
         run: |
-          PR_TITLE=${{ github.event.head_commit.message }}
+          PR_TITLE=$(echo ${{ github.event.head_commit.message }})
           if [[ $PR_TITLE == *"[minor]"* ]]; then
             echo "::set-output name=bump::minor"
           elif [[ $PR_TITLE == *"[major]"* ]]; then
