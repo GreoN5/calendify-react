@@ -1,7 +1,7 @@
-import { CalendarModalProps, CheckboxProps } from '@/components/Calendar/Calendar';
+import { CalendarCheckboxProps, CalendarModalProps } from '@/components/Calendar/Calendar';
 
-export const isOfTypeCheckboxProps = (props: unknown): props is CheckboxProps => {
-  return Boolean((props as CheckboxProps)?.useCheckbox);
+export const isOfTypeCheckboxProps = (props: unknown): props is CalendarCheckboxProps => {
+  return Boolean((props as CalendarCheckboxProps)?.useCheckbox);
 };
 
 export const isOfTypeCalendarModalProps = (props: unknown): props is CalendarModalProps => {
