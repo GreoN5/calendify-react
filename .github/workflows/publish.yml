@@ -28,17 +28,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Check Merged PR Title
-        id: check-pr-title
-        run: |
-          MERGED_PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
-          MERGED_PR_TITLE=$(curl https://api.github.com/repos/${{ github.repository }}/pulls/"${MERGED_PR_NUMBER}" | jq -r '.title')
-          echo "MERGED_PR_TITLE=$MERGED_PR_TITLE" >> $GITHUB_ENV
-
       - name: Determine version bump type from PR title
         id: determine-bump
         run: |
-          PR_TITLE=$MERGED_PR_TITLE
+          PR_TITLE=$(jq -r '.pull_request.title' $GITHUB_EVENT_PATH)
           if [[ $PR_TITLE == *"[minor]"* ]]; then
             echo "::set-output name=bump::minor"
           elif [[ $PR_TITLE == *"[major]"* ]]; then
