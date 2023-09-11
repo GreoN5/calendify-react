@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Determine version bump type from latest commit on PR
+      - name: Determine version bump type from PR title
         id: determine-bump
         run: |
           PR_TITLE=${{ github.event.head_commit.message }}
