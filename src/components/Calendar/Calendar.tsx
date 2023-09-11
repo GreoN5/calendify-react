@@ -1,5 +1,5 @@
 import React, { FC, ReactNode, UIEvent, useState } from 'react';
-import { Box, Button, Checkbox, CheckboxProps, Typography } from '@mui/material';
+import { Box, Button, Checkbox, CheckboxProps, SxProps, Theme, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import { CalendarContainer, DayContainer, WeekContainer } from '@/components/Layout';
 import Weekday from '@/components/Calendar/Weekday';
@@ -10,9 +10,11 @@ import { loadMoreWeeks } from '@/utils/date';
 import { isOfTypeCalendarModalProps, isOfTypeCheckboxProps } from '@/utils/props';
 import { DialogProps } from '@mui/material/Dialog/Dialog';
 
-interface ModalProps extends Omit<DialogProps, 'open' | 'onClose' | 'onClick' | 'onChange'> {
+export interface ModalProps extends Omit<DialogProps, 'open' | 'onClose' | 'onClick' | 'onChange'> {
   modalContent?: ReactNode;
   onSaveChanges?: () => void;
+  textareaValue?: string;
+  textareaStyle?: SxProps<Theme>;
 }
 
 export type CalendarModalProps = {
