@@ -32,7 +32,7 @@ jobs:
         id: pr
         run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
         env:
-          GITHUB_TOKEN: ${{ secrets.NPM_RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_WORKFLOW }}
 
       - name: Determine version bump type from PR title
         id: determine-bump
