@@ -1,5 +1,5 @@
 import React, { FC, ReactNode, UIEvent, useState } from 'react';
-import { Box, Button, Checkbox, CheckboxProps as CP, Typography } from '@mui/material';
+import { Box, Button, Checkbox, CheckboxProps, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import { CalendarContainer, DayContainer, WeekContainer } from '@/components/Layout';
 import Weekday from '@/components/Calendar/Weekday';
@@ -23,15 +23,15 @@ export type CalendarModalProps = {
   dateActions?: never;
 };
 
-export type CheckboxProps = {
+export type CalendarCheckboxProps = {
   useCheckbox: boolean;
-  checkboxProps: Omit<CP, 'value'>;
+  checkboxProps: Omit<CheckboxProps, 'value'>;
   useModal?: never;
   modalProps?: never;
   dateActions?: never;
 };
 
-type Props = CheckboxProps | CalendarModalProps;
+type Props = CalendarCheckboxProps | CalendarModalProps;
 
 const Calendar: FC<Props> = (props) => {
   const { weekdays } = useWeekdays();
