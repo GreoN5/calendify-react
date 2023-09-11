@@ -28,16 +28,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Get Pull Request Number
-        id: pr
-        run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_WORKFLOW }}
-
-      - name: Determine version bump type from PR title
+      - name: Determine version bump type from latest commit on PR
         id: determine-bump
         run: |
-          PR_TITLE=$(echo ${{ steps.pr.outputs.pull_request_number }})
+          PR_TITLE=${{ github.event.head_commit.message }}
           if [[ $PR_TITLE == *"[minor]"* ]]; then
             echo "::set-output name=bump::minor"
           elif [[ $PR_TITLE == *"[major]"* ]]; then
